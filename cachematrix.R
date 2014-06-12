@@ -1,7 +1,7 @@
-## Put comments here that give an overall description of what your
-## functions do
+## These two functions will get the invert of a matrix by either calculating it directly or sourcing
+## it from the cache
 
-## Write a short comment describing this function
+## makeCacheMatrix defines the functions necessary to create the matrix, get the matrix,invert the matrix, get the resulting inverted matrix 
 
 makeCacheMatrix <- function(x = matrix()) {
 
@@ -12,26 +12,31 @@ makeCacheMatrix <- function(x = matrix()) {
                   m <<- NULL
             }
             get <- function() x
-            setmean <- function(mean) m <<- mean
-            getmean <- function() m
+            
+            invert <- function(solve){
+                  m <<- solve
+            }
+            
+            getinvert <- function() m
             list(set = set, get = get,
-                 setmean = setmean,
-                 getmean = getmean)
+                 invert = invert,
+                 getinvert = getinvert)
       
 }
 
 
-## Write a short comment describing this function
+## cacheSolve uses the functions from makeCacheMatrix to execute the invertion on the matrix
+## or retreive it from the cache if it's already been calculated
 
 cacheSolve <- function(x, ...) {
-      m <- x$getmean()
+      m <- x$getinvert()
       if(!is.null(m)) {
             message("getting cached data")
             return(m)
       }
       data <- x$get()
-      m <- mean(data, ...)
-      x$setmean(m)
+      m <- solve(data)
+      x$invert(m)
       m
         ## Return a matrix that is the inverse of 'x'
 }
