@@ -31,7 +31,7 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
       m <- x$getinvert()
       if(!is.null(m)) {
-            message("getting cached data")
+            message("getting cached matrix")
             return(m)
       }
       data <- x$get()
@@ -40,3 +40,11 @@ cacheSolve <- function(x, ...) {
       m
         ## Return a matrix that is the inverse of 'x'
 }
+
+
+#sample implementation
+mtrx <- makeCacheMatrix()
+
+mtrx$set(matrix(c(2, 4, 3, 2, 5, 7,1,4,5), nrow=3, ncol=3, byrow = TRUE))
+mtrx$get()
+cacheSolve(mtrx)
